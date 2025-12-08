@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Return Book</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f7fc;
+      margin: 0;
+      padding: 0;
+    }
+
+    h2 {
+      background-color: #0077cc;
+      color: white;
+      padding: 15px 20px;
+      margin: 0 0 20px 0;
+      text-align: center;
+      border-radius: 0 0 10px 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    form {
+      width: 90%;
+      max-width: 800px;
+      margin: 0 auto 40px auto;
+      padding: 20px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+
+    table, th, td {
+      border: 1px solid #ddd;
+    }
+
+    th, td {
+      padding: 10px;
+      text-align: center;
+    }
+
+    th {
+      background-color: #0077cc;
+      color: white;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="checkbox"] {
+      padding: 5px 10px;
+      margin: 5px 0 15px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      background-color: #0077cc;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #005fa3;
+    }
+
+    div {
+      margin-bottom: 15px;
+      padding: 10px;
+      border-radius: 5px;
+      color: #fff;
+      background-color: #28a745; /* Green for success messages */
+    }
+
+    /* Optional: Style radio buttons */
+    input[type="radio"] {
+      transform: scale(1.2);
+      margin: 0 5px;
+    }
+  </style>
+</head>
+<body>
+
+<h2>Return Book</h2>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% for cat,msg in messages %}
+    <div>{{ msg }}</div>
+  {% endfor %}
+{% endwith %}
+
+<form method="post">
+  <table>
+    <tr>
+      <th>Select</th>
+      <th>Title</th>
+      <th>Serial</th>
+      <th>Member No</th>
+      <th>Issue Date</th>
+      <th>Return Date</th>
+    </tr>
+    {% for it in issues %}
+    <tr>
+      <td><input type="radio" name="issue_id" value="{{ it.id }}"></td>
+      <td>{{ it.title }}</td>
+      <td>{{ it.serial_no }}</td>
+      <td>{{ it.member_no }}</td>
+      <td>{{ it.issue_date }}</td>
+      <td>{{ it.return_date }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+  Fine Paid: <input type="checkbox" name="fine_paid"><br>
+  Remarks: <input type="text" name="remarks"><br>
+  <button type="submit">Confirm Return</button>
+</form>
+
+</body>
+</html>

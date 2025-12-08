@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Members</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f7fc;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h2 {
+      text-align: center;
+      background-color: #0077cc;
+      color: #fff;
+      padding: 15px 0;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    th, td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #0077cc;
+      color: white;
+      text-transform: uppercase;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    tr:hover {
+      background-color: #e1f0ff;
+      transition: 0.3s;
+    }
+
+    .action-btn {
+      padding: 6px 12px;
+      border-radius: 5px;
+      text-decoration: none;
+      color: #fff;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .update-btn {
+      background-color: #28a745;
+    }
+
+    .delete-btn {
+      background-color: #dc3545;
+    }
+
+    .update-btn:hover, .delete-btn:hover {
+      opacity: 0.85;
+    }
+  </style>
+</head>
+<body>
+  <h2>Members</h2>
+  <table>
+    <tr>
+      <th>ID</th>
+      <th>Member No</th>
+      <th>Name</th>
+      <th>Start</th>
+      <th>End</th>
+      <th>Actions</th>
+    </tr>
+    {% for m in members %}
+    <tr>
+      <td>{{ m.id }}</td>
+      <td>{{ m.member_no }}</td>
+      <td>{{ m.name }}</td>
+      <td>{{ m.start_date }}</td>
+      <td>{{ m.end_date }}</td>
+      <td>
+        <a href="/update_membership?member_no={{ m.member_no }}" class="action-btn update-btn">Update</a>
+        <a href="/delete_member/{{ m.id }}" class="action-btn delete-btn" 
+           onclick="return confirm('Are you sure you want to delete this member?');">
+          Delete
+        </a>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+</body>
+</html>

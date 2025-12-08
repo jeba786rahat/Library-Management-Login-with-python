@@ -1,0 +1,155 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+<title>Dashboard</title>
+
+<style>
+  body {
+     font-family: Arial, sans-serif;
+    background: url('https://editor.analyticsvidhya.com/uploads/82860library-management-system.jpg') no-repeat center center fixed;
+    background-size: cover; /* makes the image cover the whole screen */
+    margin: 0;
+    padding: 0;
+  }
+
+  <style>
+  body {
+    font-family: Arial, sans-serif;
+    /* Gradient background pattern */
+    background: repeating-linear-gradient(
+      45deg,
+      #f0f8ff,
+      #f0f8ff 20px,
+      #cce7ff 20px,
+      #cce7ff 40px
+    );
+    margin: 0;
+    padding: 0;
+  }
+
+  h2 {
+    background: #0077cc;
+    color: #fff;
+    padding: 15px;
+    margin: 0;
+    text-align: center;
+  }
+
+  .container {
+    padding: 20px;
+    max-width: 900px;
+    margin: 30px auto;
+    background: rgba(255, 255, 255, 0); /* transparent white */
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(139, 133, 133, 0.2);
+  }
+
+  p {
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    display: flex;       /* horizontal row layout */
+    gap: 15px;
+    flex-wrap: wrap;
+  }
+
+  ul > li {
+   background: #48e8e0cc; /* fully transparent */
+ /* slightly transparent white for each item */
+    padding: 30px 50px;
+    border-radius: 15px;
+    border: 5px solid #32501fff;
+    transition: 0.3s;
+    position: relative;
+  }
+
+  ul li:hover {
+    background: #0077cc;
+    border-color: #0077cc;
+  }
+
+  ul li:hover a {
+    color: #a3d5ff;
+  }
+
+  a {
+    text-decoration: none;
+    color: #333;
+    font-size: 16px;
+  }
+
+  /* Submenu styling */
+  li ul {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin: 0;
+    padding: 0;
+  }
+
+  li:hover ul {
+    display: block;
+  }
+
+  li ul li {
+    width: 180px;
+    background: rgba(116, 127, 138, 0.95); /* transparent submenu */
+    margin: 0;
+    padding: 10px;
+    border-radius: 0;
+    border: none;
+  }
+
+  li ul li:hover {
+    background: #0066b2;
+  }
+
+
+  .logout {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 15px;
+    background: red;
+    color: #fff;
+    border-radius: 5px;
+  }
+
+
+</style>
+
+</head>
+<body>
+
+<h2>Dashboard</h2>
+<div class="container">
+<p>Welcome {{ session['user']['username'] }} ({{ session['user']['role'] }})</p>
+
+<ul>
+  <li><a href="{{ url_for('report_available') }}">Available Books</a></li>
+  <li><a href="{{ url_for('report_issued') }}">Issued Books</a></li>
+  <li><a href="{{ url_for('report_overdue') }}">Overdue</a></li>
+  <li><a href="{{ url_for('issue_book') }}">Issue Book</a></li>
+  <li><a href="{{ url_for('return_book') }}">Return Book</a></li>
+  {% if session['user']['role']=='admin' %}
+  <li>Maintenance
+    <ul>
+      <li><a href="{{ url_for('add_book') }}">Add Book</a></li>
+      <li><a href="{{ url_for('list_books') }}">List Books</a></li>
+      <li><a href="{{ url_for('add_member') }}">Add Member</a></li>
+      <li><a href="{{ url_for('list_members') }}">List Members</a></li>
+     
+    </ul>
+  </li>
+  {% endif %}
+</ul>
+
+<a class="logout" href="{{ url_for('logout') }}">Logout</a>
+</div>
+</body>
+</html>

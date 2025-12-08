@@ -1,0 +1,63 @@
+   <!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Available Books</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f7fc;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h2 {
+      background-color: #0077cc;
+      color: white;
+      padding: 15px;
+      border-radius: 5px;
+      text-align: center;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    th, td {
+      padding: 12px 15px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #0077cc;
+      color: white;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    tr:hover {
+      background-color: #d9eaff;
+    }
+  </style>
+</head>
+<body>
+  <h2>Available Books</h2>
+  <table>
+    <tr><th>Title</th><th>Author</th><th>Serial</th></tr>
+    {% for b in books %}
+      <tr>
+        <td>{{ b.title }}</td>
+        <td>{{ b.author }}</td>
+        <td>{{ b.serial_no }}</td>
+      </tr>
+    {% endfor %}
+  </table>
+</body>
+</html>
+
+    

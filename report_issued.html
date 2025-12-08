@@ -1,0 +1,76 @@
+    <!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Issued Books</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f7fc;
+      margin: 0;
+      padding: 20px;
+      color: #333;
+    }
+
+    h2 {
+      background-color: #0077cc;
+      color: #fff;
+      padding: 15px;
+      border-radius: 5px;
+      margin-bottom: 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      border-radius: 5px;
+      overflow: hidden;
+    }
+
+    th, td {
+      padding: 12px 15px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #0077cc;
+      color: #fff;
+      font-weight: bold;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f6fc;
+    }
+
+    tr:hover {
+      background-color: #e1f0ff;
+      transition: background-color 0.3s;
+    }
+  </style>
+</head>
+<body>
+  <h2>Issued Books</h2>
+  <table>
+    <tr>
+      <th>Issue ID</th>
+      <th>Title</th>
+      <th>Serial</th>
+      <th>Member No</th>
+      <th>Issue Date</th>
+      <th>Return Date</th>
+    </tr>
+    {% for it in issues %}
+    <tr>
+      <td>{{ it.id }}</td>
+      <td>{{ it.title }}</td>
+      <td>{{ it.serial_no }}</td>
+      <td>{{ it.member_no }}</td>
+      <td>{{ it.issue_date }}</td>
+      <td>{{ it.return_date }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+</body>
+</html>

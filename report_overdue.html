@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Overdue</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f7fc;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h2 {
+      background-color: #d9534f;
+      color: white;
+      padding: 15px;
+      border-radius: 8px;
+      text-align: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      margin-top: 20px;
+      background-color: #fff;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    th, td {
+      padding: 12px 15px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #2f302bff;
+      color: white;
+      font-weight: bold;
+    }
+
+    /* Alternating row colors for non-overdue rows */
+    tr:nth-child(even):not(.overdue) {
+      background-color: #f9f9f9;
+    }
+
+    tr:nth-child(odd):not(.overdue) {
+      background-color: #fff;
+    }
+
+    tr:hover {
+      background-color: #ffe6e6;
+    }
+
+    /* Overdue row styling */
+    .overdue {
+      color: #8e8e1eff;
+      font-weight: bold;
+      background-color: #fff0f0;
+    }
+
+    /* Overdue badge */
+    .badge {
+      background-color: #d9534f;
+      color: white;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 12px;
+      margin-left: 8px;
+      font-weight: bold;
+    }
+
+    @media (max-width: 600px) {
+      table, th, td {
+        font-size: 14px;
+      }
+      .badge {
+        font-size: 10px;
+        padding: 2px 4px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h2>Overdue Issues</h2>
+  <table>
+    <tr>
+      <th>Issue ID</th>
+      <th>Title</th>
+      <th>Member No</th>
+      <th>Return Date</th>
+    </tr>
+    {% for it in issues %}
+    <tr class="{% if it.return_date < current_date %}overdue{% endif %}">
+      <td>{{ it.id }}</td>
+      <td>{{ it.title }}</td>
+      <td>{{ it.member_no }}</td>
+      <td>
+        {{ it.return_date }}
+        {% if it.return_date < current_date %}
+          <span class="badge">Overdue</span>
+        {% endif %}
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+</body>
+</html>

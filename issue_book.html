@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Issue Book</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f7fc;
+      margin: 0;
+      padding: 20px;
+      color: #333;
+    }
+
+    h2, h3 {
+      color: #0077cc;
+      margin-bottom: 15px;
+    }
+
+    form {
+      margin-bottom: 30px;
+      background-color: #fff;
+      padding: 15px 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    input[type="text"], input[name="member_no"], input[name="serial"] {
+      padding: 8px;
+      margin: 5px 0 15px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      width: 200px;
+    }
+
+    button {
+      background-color: #0077cc;
+      color: #fff;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #005fa3;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+
+    table, th, td {
+      border: 1px solid #ccc;
+    }
+
+    th, td {
+      padding: 10px;
+      text-align: left;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    tr:hover {
+      background-color: #e6f0ff;
+    }
+
+    div {
+      margin-bottom: 10px;
+      padding: 10px;
+      border-radius: 5px;
+      background-color: #ffefef;
+      color: #d8000c;
+      border: 1px solid #d8000c;
+    }
+  </style>
+</head>
+<body>
+
+<h2>Issue Book</h2>
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% for cat,msg in messages %}
+    <div>{{ msg }}</div>
+  {% endfor %}
+{% endwith %}
+
+<form method="post">
+  Member No: <input name="member_no" type="text"><br>
+  Search by Serial: <input name="serial" type="text"> 
+  <button type="submit">Search/Issue</button><br>
+</form>
+
+<h3>Available Books</h3>
+<form method="post">
+  <input type="hidden" name="book_id" id="book_id">
+  Member No: <input name="member_no" type="text"><br>
+  <table>
+    <tr><th>Select</th><th>Title</th><th>Author</th><th>Serial</th></tr>
+    {% for b in books %}
+    <tr>
+      <td><input type="radio" name="select_book" value="{{ b.id }}" onclick="document.getElementById('book_id').value='{{ b.id }}'"></td>
+      <td>{{ b.title }}</td><td>{{ b.author }}</td><td>{{ b.serial_no }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+  <button type="submit">Issue Selected Book</button>
+</form>
+
+</body>
+</html>

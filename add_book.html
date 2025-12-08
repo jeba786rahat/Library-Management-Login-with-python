@@ -1,0 +1,106 @@
+   <!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Add Book</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f7fc;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background-color: #fff;
+      padding: 30px 40px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      width: 350px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #0077cc;
+      margin-bottom: 20px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    label {
+      margin: 10px 0 5px;
+      font-weight: bold;
+    }
+
+    input {
+      padding: 8px 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      margin-bottom: 15px;
+      font-size: 14px;
+    }
+
+    button {
+      padding: 10px;
+      background-color: #0077cc;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background-color: #005fa3;
+    }
+
+    .messages div {
+      padding: 8px 12px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+
+    .messages .success {
+      background-color: #d4edda;
+      color: #155724;
+    }
+
+    .messages .error {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Add Book</h2>
+    <div class="messages">
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% for cat,msg in messages %}
+          <div class="{{ cat }}">{{ msg }}</div>
+        {% endfor %}
+      {% endwith %}
+    </div>
+    <form method="post">
+      <label>Title:</label>
+      <input name="title" value="{{ form.title if form else '' }}">
+      
+      <label>Author:</label>
+      <input name="author" value="{{ form.author if form else '' }}">
+      
+      <label>Serial No:</label>
+      <input name="serial" value="{{ form.serial if form else '' }}">
+      
+      <button type="submit">Add</button>
+    </form>
+  </div>
+</body>
+</html>

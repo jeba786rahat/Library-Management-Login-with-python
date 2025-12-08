@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Manage Members</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f7fc;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+    h2 {
+      text-align: center;
+      color: #0077cc;
+      margin-top: 20px;
+    }
+    form {
+      background: #fff;
+      padding: 20px 30px;
+      margin: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      width: 350px;
+    }
+    form input, form select {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    form button {
+      width: 100%;
+      background-color: #0077cc;
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    form button:hover {
+      background-color: #005fa3;
+    }
+    .alert {
+      background-color: #ffefef;
+      color: #cc0000;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      border: 1px solid #cc0000;
+      font-size: 14px;
+    }
+    table {
+      width: 85%;
+      border-collapse: collapse;
+      margin-bottom: 50px;
+    }
+    table th, table td {
+      padding: 10px;
+      border: 1px solid #ccc;
+      text-align: center;
+    }
+    table th {
+      background: #0077cc;
+      color: #fff;
+    }
+    a.btn {
+      display: inline-block;
+      padding: 5px 10px;
+      text-decoration: none;
+      font-size: 14px;
+      border-radius: 4px;
+    }
+    .btn-update { background: #009900; color: #fff; }
+    .btn-delete { background: #cc0000; color: #fff; }
+  </style>
+</head>
+<body>
+
+<h2>Manage Members</h2>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% for cat,msg in messages %}
+    <div class="alert">{{ msg }}</div>
+  {% endfor %}
+{% endwith %}
+
+<form method="post">
+  <input type="hidden" name="id" value="{{ form.id if form else '' }}">
+  Member No: <input name="member_no" value="{{ form.member_no if form else '' }}"><br>
+  Name: <input name="name" value="{{ form.name if form else '' }}"><br>
+  Phone: <input name="phone" value="{{ form.phone if form else '' }}"><br>
+  Email: <input name="email" value="{{ form.email if form else '' }}"><br>
+  Address: <input name="address" value="{{ form.address if form else '' }}"><br>
+  Plan: 
+  <select name="plan">
+    <option value="6" {% if form and form.plan=='6' %}selected{% endif %}>6 months</option>
+    <option value="12" {% if form and form.plan=='12' %}selected{% endif %}>1 year</option>
+    <option value="24" {% if form and form.plan=='24' %}selected{% endif %}>2 years</option>
+  </select><br>
+
+  <button type="submit">{{ 'Update Member' if form else 'Add Member' }}</button>
+</form>
+
+<table>
+  <tr><th>ID</th><th>Member No</th><th>Name</th><th>Phone</th><th>Email</th><th>Address</th><th>Plan</th><th>Action</th></tr>
+  {% for m in members %}
+  <tr>
+    <td>{{ m.id }}</td>
+    <td>{{ m.member_no }}</td>
+    <td>{{ m.name }}</td>
+    <td>{{ m.phone }}</td>
+    <td>{{ m.email }}</td>
+    <td>{{ m.address }}</td>
+    <td>{{ m.plan }}</td>
+    <td>
+      <a class="btn btn-update" href="{{ url_for('edit_member', id=m.id) }}">Update</a>
+      <a class="btn btn-delete" href="{{ url_for('delete_member', id=m.id) }}" 
+         onclick="return confirm('Are you sure?');">Delete</a>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+
+</body>
+</html>

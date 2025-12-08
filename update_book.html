@@ -1,0 +1,10 @@
+<!doctype html>
+<title>Update Book</title>
+<h2>Update Book</h2>
+<form method="post">
+  Title: <input name="title" value="{{ book.title }}"><br><br>
+  Author: <input name="author" value="{{ book.author }}"><br><br>
+  Serial No: <input name="serial_no" value="{{ book.serial_no }}"><br><br>
+  <button type="submit">Update</button>
+</form>
+<a href="/books">Cancel</a>

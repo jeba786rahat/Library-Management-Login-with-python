@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Library Management Login</title>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: url('https://industralight.com.au/wp-content/uploads/Industralight-LED-Lighting-NSW-Library-139A9865a.jpg') no-repeat center center fixed;
+    background-size: cover;
+       
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
+
+    .login-box {
+    background: rgba(255, 255, 255, 0.5); 
+    width: 350px;
+    padding: 60px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+
+    h2 {
+    margin-bottom: 20px;
+    color: #002b5c;
+    
+    background: linear-gradient(90deg, #ff00cc, #3333ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    
+    
+    background-clip: text;
+    color: transparent;
+}
+
+
+    input {
+        width: 90%;
+        padding: 12px;
+        margin: 10px 0;
+        border: 1px solid #8ba6c9;
+        border-radius: 5px;
+    }
+
+    button {
+        width: 95%;
+        padding: 12px;
+        background: #002b5c;
+        color: white;
+        font-size: 16px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background: #004a99;
+    }
+
+    .footer {
+        margin-top: 15px;
+        font-size: 14px;
+    }
+
+    .footer a {
+        text-decoration: none;
+        color: #004a99;
+    }
+</style>
+
+</head>
+
+<body>
+
+<div class="login-box">
+    <h2>Library Management Login</h2>
+    
+    <form method="post" action="/login">
+        <input type="text" name="username" placeholder="Enter Username" required>
+        <input type="password" name="password" placeholder="Enter Password" required>
+        <button type="submit">Login</button>
+    </form>
+
+    <div class="footer">
+        New member? 
+    </div>
+</div>
+
+</body>
+</html>
