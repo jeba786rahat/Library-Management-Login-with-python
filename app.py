@@ -274,38 +274,91 @@ def report_overdue():
 
 # 📌 Update Book via Modal
 @app.route('/maintenance/books/modal/update', methods=['POST'])
-@login_required
 @admin_required
+@login_required
 def update_book_modal():
-    id = request.form['id']
+    book_id = request.form['id']
     title = request.form['title']
     author = request.form['author']
-    serial = request.form['serial_no']
-    
-    conn = get_db()
-    conn.execute("UPDATE books SET title=?, author=?, serial_no=? WHERE id=?", 
-                 (title, author, serial, id))
-    conn.commit()
-    conn.close()
-    
-    flash("Book updated successfully!", "success")
-    return redirect(url_for('list_books'))
+    serial_no = request.form['serial_no']
+
+    try:
+        with get_db() as conn:
+            conn.execute("""
+                UPDATE books SET title=?, author=?, serial_no=? WHERE id=?
+            """, (title, author, serial_no, book_id))
+            conn.commit()
+
+        flash("Book updated successfully!", "success")
+
+    except Exception as e:
+        flash("Error updating book!", "danger")
+        print(e)
+
+    return redirect(url_for("list_books"))
 
 
 # 📌 Delete Book via Modal
 @app.route('/maintenance/books/modal/delete', methods=['POST'])
-@login_required
 @admin_required
+@login_required
 def delete_book_modal():
-    id = request.form['id']
-    
-    conn = get_db()
-    conn.execute("DELETE FROM books WHERE id=?", (id,))
+    book_id = request.form['id']
+
+    try:
+        with get_db() as conn:
+            conn.execute("DELETE FROM books WHERE id=?", (book_id,))
+            conn.commit()
+
+        flash("Book deleted successfully!", "danger")
+
+    except Exception as e:
+        flash("Error deleting book!", "danger")
+        print(e)
+
+    return redirect(url_for("list_books"))
+
+
+
+
+
+@app.route('/maintenance/members/modal/update', methods=['POST'])
+def update_member():
+    member_id = request.form.get('id')
+    member_no = request.form.get('member_no')
+    name = request.form.get('name')
+    start_date = request.form.get('start_date')
+    end_date = request.form.get('end_date')
+
+    conn = sqlite3.connect(DB_PATH)
+    c = conn.cursor()
+
+    c.execute("""
+        UPDATE members
+        SET member_no = ?, name = ?, start_date = ?, end_date = ?
+        WHERE id = ?
+    """, (member_no, name, start_date, end_date, member_id))
+
     conn.commit()
     conn.close()
-    
-    flash("Book deleted successfully!", "success")
-    return redirect(url_for('list_books'))
+
+    flash("Member updated successfully!", "success")
+    return redirect(url_for('list_members'))
+
+@app.route('/maintenance/members/modal/delete', methods=['POST'])
+def delete_member():
+    member_id = request.form.get('id')
+
+    conn = sqlite3.connect(DB_PATH)
+    c = conn.cursor()
+    c.execute("DELETE FROM members WHERE id = ?", (member_id,))
+    conn.commit()
+    conn.close()
+
+    flash("Member deleted successfully!", "success")
+    return redirect(url_for('list_members'))
+
+
 
 
 
